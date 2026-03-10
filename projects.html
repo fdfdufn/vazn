@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>vazN / projects</title>
+
+<style>
+body{
+    margin:0;
+    background:black;
+    color:white;
+    font-family:Arial, Helvetica, sans-serif;
+    overflow:hidden;
+}
+
+/* loading screen */
+#loader{
+    position:fixed;
+    width:100%;
+    height:100%;
+    background:black;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:999;
+    animation:pullUp 1.5s forwards;
+}
+
+@keyframes pullUp{
+    0%{transform:translateY(0);}
+    100%{transform:translateY(-100%);}
+}
+
+/* main content */
+#content{
+    text-align:center;
+    position:absolute;
+    top:40%;
+    left:50%;
+    transform:translate(-50%,-50%);
+}
+
+/* title */
+h1{
+    font-size:60px;
+    margin-bottom:30px;
+    cursor:pointer;
+}
+
+/* shake animation */
+@keyframes shake{
+    0%{transform:translateX(0);}
+    25%{transform:translateX(-6px);}
+    50%{transform:translateX(6px);}
+    75%{transform:translateX(-6px);}
+    100%{transform:translateX(0);}
+}
+
+.shake{
+    animation:shake 0.5s;
+}
+
+/* links */
+.links{
+    width:200px;
+    margin:auto;
+}
+
+.links a{
+    display:block;
+    color:white;
+    text-decoration:none;
+    padding:12px 0;
+}
+
+.line{
+    width:100%;
+    height:1px;
+    background:white;
+}
+
+/* snowflake */
+#flake{
+    position:fixed;
+    font-size:18px;
+    pointer-events:none;
+}
+</style>
+</head>
+
+<body>
+
+<div id="loader"></div>
+
+<div id="content">
+    <h1 id="title">projects</h1>
+
+    <div class="links">
+        <div class="line"></div>
+        <a href="#">project one</a>
+        <div class="line"></div>
+        <a href="#">project two</a>
+        <div class="line"></div>
+        <a href="#">project three</a>
+        <div class="line"></div>
+    </div>
+</div>
+
+<div id="flake">❄</div>
+
+<script>
+
+/* title shake */
+const title = document.getElementById("title");
+
+title.onclick = () => {
+    title.classList.remove("shake");
+    void title.offsetWidth;
+    title.classList.add("shake");
+};
+
+/* snowflake follow + fall */
+const flake = document.getElementById("flake");
+let mouseX = window.innerWidth/2;
+let y = 0;
+
+document.addEventListener("mousemove", e=>{
+    mouseX = e.clientX;
+});
+
+function animate(){
+    y += 1.5;
+
+    if(y > window.innerHeight){
+        y = 0;
+    }
+
+    flake.style.left = mouseX + "px";
+    flake.style.top = y + "px";
+
+    requestAnimationFrame(animate);
+}
+
+animate();
+
+/* remove loader overflow after animation */
+setTimeout(()=>{
+    document.body.style.overflow="auto";
+},1500);
+
+</script>
+
+</body>
+</html>
