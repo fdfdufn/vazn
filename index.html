@@ -6,133 +6,181 @@
 <title>vazn</title>
 
 <style>
-    body {
+    /* Reset */
+    * {
         margin: 0;
-        font-family: Arial, sans-serif;
-        background: #000;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", sans-serif;
+    }
+
+    body {
+        background: #0a0a0a;
         color: #fff;
         display: flex;
         justify-content: center;
+        align-items: center;
+        height: 100vh;
+        overflow: hidden;
     }
 
+    /* Container */
     .container {
-        max-width: 800px;
-        width: 90%;
         text-align: center;
-        padding: 20px;
+        animation: fadeIn 1.5s ease forwards;
+        opacity: 0;
     }
 
+    /* Title */
     h1 {
-        font-size: 28px;
-        margin-bottom: 20px;
-    }
-
-    /* ASCII ART */
-    .ascii {
-        background: #111;
-        padding: 15px;
-        font-family: monospace;
-        white-space: pre;
-        overflow-x: auto;
-        border-radius: 10px;
+        font-size: 2.5rem;
+        letter-spacing: 2px;
         margin-bottom: 25px;
+        animation: slideDown 1s ease forwards;
     }
 
-    /* PROFILE */
+    /* Profile */
     .profile {
         display: flex;
         align-items: center;
         justify-content: center;
         gap: 15px;
         margin-bottom: 20px;
-        flex-wrap: wrap;
+        animation: fadeIn 2s ease forwards;
     }
 
     .profile img {
         width: 80px;
         height: 80px;
         border-radius: 50%;
+        border: 2px solid #fff;
         object-fit: cover;
-        border: 2px solid #444;
+        transition: transform 0.3s ease;
+    }
+
+    .profile img:hover {
+        transform: scale(1.1) rotate(3deg);
     }
 
     .username {
-        font-size: 20px;
-        font-weight: bold;
+        font-size: 1.2rem;
+        opacity: 0.8;
     }
 
-    /* ABOUT */
+    /* About */
     .about {
         margin: 15px 0;
-        font-size: 16px;
-        color: #ccc;
+        font-size: 1rem;
+        opacity: 0.7;
     }
 
-    /* STATUS */
+    /* Status */
     .status {
-        margin: 15px 0;
-        font-size: 16px;
+        margin: 10px 0 25px;
+        font-size: 1rem;
     }
 
     .inactive {
-        color: red;
+        color: #ff3b3b;
         font-weight: bold;
     }
 
-    /* BUTTONS */
+    /* Links */
     .links {
-        margin-top: 25px;
         display: flex;
         flex-direction: column;
         gap: 12px;
     }
 
-    .btn {
+    .links a {
         text-decoration: none;
-        color: white;
+        color: #fff;
         padding: 12px;
         border: 1px solid #444;
         border-radius: 8px;
-        transition: 0.3s ease;
+        transition: all 0.3s ease;
         position: relative;
         overflow: hidden;
     }
 
-    /* COOL HOVER EFFECT */
-    .btn::before {
+    /* Button hover effect */
+    .links a::before {
         content: "";
         position: absolute;
+        width: 0%;
+        height: 100%;
         top: 0;
-        left: -100%;
+        left: 0;
+        background: linear-gradient(120deg, #6a00ff, #00d4ff);
+        transition: width 0.4s ease;
+        z-index: -1;
+    }
+
+    .links a:hover::before {
+        width: 100%;
+    }
+
+    .links a:hover {
+        color: #000;
+        transform: translateY(-3px);
+        box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+        to { opacity: 1; }
+    }
+
+    @keyframes slideDown {
+        from {
+            transform: translateY(-30px);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    /* Startup animation overlay */
+    .intro {
+        position: fixed;
         width: 100%;
         height: 100%;
-        background: linear-gradient(120deg, transparent, rgba(255,255,255,0.2), transparent);
-        transition: 0.4s;
+        background: #000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 999;
+        animation: introFade 2s ease forwards;
     }
 
-    .btn:hover::before {
-        left: 100%;
+    .intro span {
+        font-size: 2rem;
+        letter-spacing: 5px;
+        animation: glow 1.5s infinite alternate;
     }
 
-    .btn:hover {
-        background: #111;
-        border-color: #888;
-        transform: scale(1.03);
+    @keyframes introFade {
+        0% { opacity: 1; }
+        80% { opacity: 1; }
+        100% { opacity: 0; visibility: hidden; }
     }
 
-    /* MOBILE */
+    @keyframes glow {
+        from { text-shadow: 0 0 10px #fff; }
+        to { text-shadow: 0 0 20px #6a00ff, 0 0 30px #00d4ff; }
+    }
+
+    /* Mobile */
     @media (max-width: 600px) {
         h1 {
-            font-size: 22px;
+            font-size: 2rem;
         }
 
         .profile img {
             width: 65px;
             height: 65px;
-        }
-
-        .username {
-            font-size: 18px;
         }
     }
 </style>
@@ -140,19 +188,12 @@
 
 <body>
 
+<div class="intro">
+    <span>LOADING</span>
+</div>
+
 <div class="container">
-
-    <h1>vazn</h1>
-
-    <div class="ascii">
-                                                    888   _   
-Y88b    /   /~~~8e   ~~~d88P 888-~88e      888  888 888 e~ ~  
- Y88b  /        88b    d88P  888  888      888  888 888d8b    
-  Y88b/    e88~-888   d88P   888  888      888  888 888Y88b   
-   Y8/    C888  888  d88P    888  888 d88b 888  888 888 Y88b  
-    Y      "88_-888 d88P___  888  888 Y88P "88_-888 888  Y88b 
-                                                              
-    </div>
+    <h1>vazN</h1>
 
     <div class="profile">
         <img src="https://via.placeholder.com/150" alt="profile">
@@ -160,19 +201,17 @@ Y88b    /   /~~~8e   ~~~d88P 888-~88e      888  888 888 e~ ~
     </div>
 
     <div class="about">
-        about me
+        Designer, advanced cybersecurity
     </div>
 
     <div class="status">
-        status: <span class="inactive">inactive</span>
+        Status: <span class="inactive">inactive</span>
     </div>
 
     <div class="links">
-        <a href="#" class="btn">telegram</a>
-        <a href="#" class="btn">signal</a>
-        <a href="#" class="btn">idk</a>
+        <a href="#">telegram</a>
+        <a href="#">signal</a>
     </div>
-
 </div>
 
 </body>
