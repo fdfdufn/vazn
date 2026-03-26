@@ -1,14 +1,14 @@
-// Simple optional JS for dynamic status or effects
+// Optional small interaction (edit or remove)
 
-// Example: blinking cursor effect
-const statusText = document.getElementById("status-text");
+// Example: blinking cursor effect for status
+const status = document.getElementById("status-text");
 
 let visible = true;
 setInterval(() => {
-    if (visible) {
-        statusText.innerText = "$ inactive_";
-    } else {
-        statusText.innerText = "$ inactive";
-    }
-    visible = !visible;
+  if (visible) {
+    status.textContent = status.textContent.replace("|", "");
+  } else {
+    status.textContent = status.textContent + " |";
+  }
+  visible = !visible;
 }, 500);
