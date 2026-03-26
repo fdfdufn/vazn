@@ -6,9 +6,9 @@ const statusText = document.getElementById("status-text");
 let visible = true;
 setInterval(() => {
     if (visible) {
-        statusText.innerText = "$ edit here_";
+        statusText.innerText = "$ inactive_";
     } else {
-        statusText.innerText = "$ edit here";
+        statusText.innerText = "$ inactive";
     }
     visible = !visible;
 }, 500);
